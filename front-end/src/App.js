@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Switcher from './Switcher';
+import Router from './Router';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Switcher />
+        <Router />
       </BrowserRouter>
     </div>
   );
