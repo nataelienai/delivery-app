@@ -7,7 +7,9 @@ export default function Login() {
   const handleValidation = () => {
     const validRegex = /\S+@\S+\.\S+/;
     const minPasswordLength = 6;
-    if (validRegex.test(typedInfo.email) && typedInfo.name.length >= minPasswordLength) {
+    if (
+      validRegex.test(typedInfo.email) && typedInfo.password.length >= minPasswordLength
+    ) {
       toggleInvalidInfo(false);
     } else {
       toggleInvalidInfo(true);
@@ -28,7 +30,7 @@ export default function Login() {
 
   return (
     <div>
-      <form action="">
+      <form>
         <label htmlFor="input-email">
           Login
           <input
@@ -51,15 +53,21 @@ export default function Login() {
             onChange={ onChangeHandle }
           />
         </label>
-        <button data-testid="common_login__button-login" type="submit">
+        <button
+          data-testid="common_login__button-login"
+          type="submit"
+          disabled={ invalidInfo }
+        >
           Login
         </button>
-        <button data-testid="common_login__button-register" type="submit">
+        <button
+          data-testid="common_login__button-register"
+          type="button"
+        >
           Ainda não tenho conta
         </button>
       </form>
       <h1
-        hidden={ invalidInfo }
         data-testid="common_login__element-invalid-email"
       >
         Msg de erro
