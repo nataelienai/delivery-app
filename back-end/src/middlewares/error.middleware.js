@@ -1,20 +1,17 @@
+const errors = require('../errors');
+
 module.exports = function error(err, _req, res, _next) {
-  if(err instanceof NotFound) {
+  if (err instanceof errors.NotFound) {
     return res.status(404).json({ message: err.message });
   }
 
-  if(err instanceof IncorrectPassword) {
+  if (err instanceof errors.IncorrectPassword) {
     return res.status(400).json({ message: err.message });
   }
 
-  if(err instanceof UserExists) {
+  if (err instanceof errors.UserExists) {
     return res.status(400).json({ message: err.message });
   }
 
   return res.status(500).json({ message: 'Internal server error' });
-}
-
-class IncorrectPassword extends Error {};
-class NotFound extends Error {};
-class UserExists extends Error {};
-
+};
