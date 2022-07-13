@@ -8,4 +8,4 @@ module.exports = async function register(req, res, next) {
   } catch (error) {
     next(error);
   }
-}
+};
