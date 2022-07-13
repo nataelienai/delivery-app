@@ -20,7 +20,7 @@ export default function Login() {
 
   useEffect(() => {
     handleValidation();
-  }, [handleValidation, typedInfo]);
+  }, [typedInfo]);
 
   const onChangeHandle = ({ target }) => {
     const { name, value } = target;
