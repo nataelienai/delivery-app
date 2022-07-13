@@ -1,4 +1,6 @@
+const crypto = require('crypto');
 const { User } = require('../database/models');
+const errors = require('../errors');
 
 module.exports = async function register(name, email, password) {
   const user = await User.find({
@@ -8,7 +10,7 @@ module.exports = async function register(name, email, password) {
   });
 
   if (user) {
-    throw new UserExists('User already exists');
+    throw new errors.UserExists('User already exists');
   }
 
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
@@ -21,4 +23,4 @@ module.exports = async function register(name, email, password) {
 
   delete newEntry.password;
   return newEntry;
-}
+};

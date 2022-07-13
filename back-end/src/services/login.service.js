@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const jwt = require('../utils/jwt');
 const { User } = require('../database/models');
+const errors = require('../errors');
 
 async function login(email, password) {
   const user = await User.find({
@@ -10,13 +11,13 @@ async function login(email, password) {
   });
 
   if (!user) {
-    throw new NotFound('User not found');
+    throw new errors.NotFound('User not found');
   }
 
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
 
   if (user.password !== hashedPassword) {
-    throw new IncorrectPassword('Incorrect password');
+    throw new errors.IncorrectPassword('Incorrect password');
   }
 
   delete user.password;
