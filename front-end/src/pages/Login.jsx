@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [typedInfo, setTypedInfo] = useState({ email: '', password: '' });
   const [invalidInfo, toggleInvalidInfo] = useState(true);
 
@@ -18,7 +20,7 @@ export default function Login() {
 
   useEffect(() => {
     handleValidation();
-  }, [typedInfo]);
+  }, [handleValidation, typedInfo]);
 
   const onChangeHandle = ({ target }) => {
     const { name, value } = target;
@@ -26,6 +28,10 @@ export default function Login() {
       ...typedInfo,
       [name]: value,
     });
+  };
+
+  const handleClick = () => {
+    navigate('/register');
   };
 
   return (
@@ -63,6 +69,7 @@ export default function Login() {
         <button
           data-testid="common_login__button-register"
           type="button"
+          onClick={ handleClick }
         >
           Ainda não tenho conta
         </button>
