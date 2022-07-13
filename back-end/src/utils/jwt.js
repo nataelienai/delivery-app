@@ -4,7 +4,7 @@ const Path = require('path');
 
 const jwtSecret = readFileSync(
   Path.resolve(__dirname, '..', '..', 'jwt.evaluation.key'),
-  { encoding: 'utf-8' }
+  { encoding: 'utf-8' };
 );
 
 function create(data) {
