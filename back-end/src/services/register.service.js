@@ -8,7 +8,7 @@ module.exports = async function register(name, email, password) {
   });
 
   if (user) {
-    throw new Error('User already exists');
+    throw new UserExists('User already exists');
   }
 
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
@@ -19,5 +19,6 @@ module.exports = async function register(name, email, password) {
     password: hashedPassword,
   });
 
+  delete newEntry.password;
   return newEntry;
 }

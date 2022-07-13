@@ -10,13 +10,13 @@ async function login(email, password) {
   });
 
   if (!user) {
-    throw new Error('User not found');
+    throw new NotFound('User not found');
   }
 
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
 
   if (user.password !== hashedPassword) {
-    throw new Error('Incorrect password');
+    throw new IncorrectPassword('Incorrect password');
   }
 
   delete user.password;
