@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router';
 
-export default function Login() {
-  const navigate = useNavigate();
-  const [typedInfo, setTypedInfo] = useState({ email: '', password: '' });
+export default function Register() {
+  const [typedInfo, setTypedInfo] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
   const [invalidInfo, toggleInvalidInfo] = useState(true);
 
   const handleValidation = () => {
     const validRegex = /\S+@\S+\.\S+/;
     const minPasswordLength = 6;
+    const minNameLength = 12;
     if (
-      validRegex.test(typedInfo.email) && typedInfo.password.length >= minPasswordLength
+      validRegex.test(typedInfo.email)
+        && typedInfo.password.length >= minPasswordLength
+        && typedInfo.name.length >= minNameLength
     ) {
       toggleInvalidInfo(false);
     } else {
@@ -24,26 +30,34 @@ export default function Login() {
 
   const onChangeHandle = ({ target }) => {
     const { name, value } = target;
+
     setTypedInfo({
       ...typedInfo,
       [name]: value,
     });
   };
 
-  const handleClick = () => {
-    navigate('/register');
-  };
-
   return (
     <div>
       <form>
-        <label htmlFor="input-email">
-          Login
+        <label htmlFor="input-name">
+          Nome
           <input
-            data-testid="common_login__input-email"
-            id="input-email"
+            data-testid="common_register__input-name"
+            id="input-name"
             type="text"
+            name="name"
+            value={ typedInfo.name }
+            onChange={ onChangeHandle }
+          />
+        </label>
+        <label htmlFor="input-password">
+          Email
+          <input
+            data-testid="common_register__input-email"
+            id="input-email"
             name="email"
+            type="text"
             value={ typedInfo.email }
             onChange={ onChangeHandle }
           />
@@ -51,7 +65,7 @@ export default function Login() {
         <label htmlFor="input-password">
           Senha
           <input
-            data-testid="common_login__input-password"
+            data-testid="common_register__input-password"
             id="input-password"
             name="password"
             type="text"
@@ -60,25 +74,19 @@ export default function Login() {
           />
         </label>
         <button
-          data-testid="common_login__button-login"
-          type="submit"
+          data-testid="common_register__button-register"
+          type="button"
           disabled={ invalidInfo }
         >
-          Login
+          Cadastrar
         </button>
-        <button
-          data-testid="common_login__button-register"
-          type="button"
-          onClick={ handleClick }
+
+        <h1
+          data-testid="common_register__element-invalid_register"
         >
-          Ainda não tenho conta
-        </button>
+          Msg de erro
+        </h1>
       </form>
-      <h1
-        data-testid="common_login__element-invalid-email"
-      >
-        Msg de erro
-      </h1>
     </div>
   );
 }
