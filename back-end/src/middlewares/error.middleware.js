@@ -1,15 +1,15 @@
-const errors = require('../errors');
+const { IncorrectPassword, NotFound, UserAlreadyExists } = require('../errors');
 
 module.exports = function error(err, _req, res, _next) {
-  if (err instanceof errors.NotFound) {
+  if (err instanceof NotFound) {
     return res.status(404).json({ message: err.message });
   }
 
-  if (err instanceof errors.IncorrectPassword) {
+  if (err instanceof IncorrectPassword) {
     return res.status(400).json({ message: err.message });
   }
 
-  if (err instanceof errors.UserExists) {
+  if (err instanceof UserAlreadyExists) {
     return res.status(400).json({ message: err.message });
   }
 
