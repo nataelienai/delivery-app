@@ -8,7 +8,7 @@ const jwtSecret = readFileSync(
 );
 
 function create(data) {
-  return jwt.sign(data, jwtSecret, { algorithm: 'HS256', expiresIn: '1h' });
+  return jwt.sign(data, jwtSecret, { algorithm: 'HS256' }, { expiresIn: '1h' });
 }
 
 function verify(token) {
