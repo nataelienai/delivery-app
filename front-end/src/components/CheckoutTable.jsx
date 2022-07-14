@@ -1,4 +1,23 @@
 import React from 'react';
+import CheckoutTableRow from './CheckoutTableRows';
+
+const itemsMock = [
+  {
+    name: 'Item One',
+    quantity: 3,
+    unitValue: 5.0,
+  },
+  {
+    name: 'Item Two',
+    quantity: 5,
+    unitValue: 2.5,
+  },
+  {
+    name: 'Item Three',
+    quantity: 6,
+    unitValue: 8,
+  },
+];
 
 export default function CheckoutTable() {
   return (
@@ -14,30 +33,11 @@ export default function CheckoutTable() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Item1</td>
-          <td>Descrição1</td>
-          <td>Quantidade1</td>
-          <td>Valor unitário1</td>
-          <td>Sub-total1</td>
-          <td>Remover Item1</td>
-        </tr>
-        <tr>
-          <td>Item</td>
-          <td>Descrição2</td>
-          <td>Quantidade2</td>
-          <td>Valor unitário2</td>
-          <td>Sub-total2</td>
-          <td>Remover Item2</td>
-        </tr>
-        <tr>
-          <td>Item3</td>
-          <td>Descrição3</td>
-          <td>Quantidade3</td>
-          <td>Valor unitário3</td>
-          <td>Sub-total3</td>
-          <td>Remover Item3</td>
-        </tr>
+        {
+          itemsMock.map((item, index) => (
+            <CheckoutTableRow item={ item } key={ index } id={ index } />
+          ))
+        }
       </tbody>
     </table>
   );
