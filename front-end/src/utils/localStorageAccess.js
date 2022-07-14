@@ -5,8 +5,7 @@ function getLocalStorage() {
 }
 
 function setLocalStorage(key, payload) {
-  const currentLocalStorage = getLocalStorage();
-  localStorage.setItem(key, JSON.stringify({ ...currentLocalStorage, payload }));
+  localStorage.setItem(key, JSON.stringify({ ...payload }));
 }
 
 export {
