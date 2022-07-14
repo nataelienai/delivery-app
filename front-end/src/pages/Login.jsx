@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
+import GlobalContext from '../context/GlobalContext';
+import { setLocalStorage } from '../utils/localStorageAccess';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { setUserDataLogin } = useContext(GlobalContext);
   const [typedInfo, setTypedInfo] = useState({ email: '', password: '' });
   const [invalidInfo, toggleInvalidInfo] = useState(true);
 
@@ -28,6 +31,11 @@ export default function Login() {
       ...typedInfo,
       [name]: value,
     });
+  };
+
+  const saveOnLocalStorageAndGlobalState = (key, payload) => {
+    setUserDataLogin(payload);
+    setLocalStorage(key, payload);
   };
 
   const handleClick = () => {
@@ -61,8 +69,9 @@ export default function Login() {
         </label>
         <button
           data-testid="common_login__button-login"
-          type="submit"
+          type="button"
           disabled={ invalidInfo }
+          onClick={ () => saveOnLocalStorageAndGlobalState('user', typedInfo) }
         >
           Login
         </button>
