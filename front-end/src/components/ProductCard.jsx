@@ -14,21 +14,29 @@ export default function ProductCard({ product, id }) {
       >
         { product.price }
       </h2>
-      <div data-testid="customer_products__img-card-bg-image-<id>">product image</div>
+      <div
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+      >
+        product image
+      </div>
       <div>
         <button
-          data-testid="customer_products__button-card-add-item-<id>"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
           type="button"
         >
           +
         </button>
+        <h2
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+        >
+          product qtd
+        </h2>
         <button
-          data-testid="customer_products__button-card-rm-item-<id>"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
         >
           -
         </button>
-        <h2 data-testid="customer_products__input-card-quantity-<id>">product name</h2>
       </div>
     </div>
   );
