@@ -1,31 +1,27 @@
 const crypto = require('crypto');
 const jwt = require('../utils/jwt');
 const { User } = require('../database/models');
-const errors = require('../errors');
+const { IncorrectPassword, NotFound } = require('../errors');
 
-async function login(email, password) {
-  const user = await User.find({
+module.exports = async function login(email, password) {
+  const user = await User.findOne({
     where: {
       email,
     },
   });
 
   if (!user) {
-    throw new errors.NotFound('User not found');
+    throw new NotFound('User not found');
   }
 
   const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
 
   if (user.password !== hashedPassword) {
-    throw new errors.IncorrectPassword('Incorrect password');
+    throw new IncorrectPassword('Incorrect password');
   }
 
   delete user.password;
-  const token = jwt.create(user);
+  const token = jwt.create(user.email);
 
-  return { ...user, token };
-}
-
-module.exports = {
-  login,
+  return { user, token };
 };
