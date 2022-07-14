@@ -1,4 +1,4 @@
-const services = require("../services")
+const services = require('../services');
 
 module.exports = async function getAll(_req, res, next) {
   try {
@@ -7,4 +7,4 @@ module.exports = async function getAll(_req, res, next) {
   } catch (error) {
     next(error);
   }
-}
+};
