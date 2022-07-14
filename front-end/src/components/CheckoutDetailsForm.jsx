@@ -54,6 +54,7 @@ export default function CheckoutDetailsForm() {
           />
         </label>
         <label htmlFor="number">
+          Número
           <input
             id="address-input"
             data-testid="customer_checkout__input-addressNumber"
