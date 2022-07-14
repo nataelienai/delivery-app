@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../components/Header';
 import ProductCard from '../components/ProductCard';
 
 const productsMock = [
@@ -61,10 +62,13 @@ const productsMock = [
 
 export default function Customer() {
   return (
-    <div>
-      { productsMock.map((product, index) => (
-        <ProductCard product={ product } key={ index } id={ index } />
-      )) }
-    </div>
+    <main>
+      <Header />
+      <div>
+        { productsMock.map((product, index) => (
+          <ProductCard product={ product } key={ index } id={ index } />
+        )) }
+      </div>
+    </main>
   );
 }
