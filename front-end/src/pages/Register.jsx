@@ -80,13 +80,12 @@ export default function Register() {
         >
           Cadastrar
         </button>
-
-        <h1
-          data-testid="common_register__element-invalid_register"
-        >
-          Msg de erro
-        </h1>
       </form>
+      <h1
+        data-testid="common_register__element-invalid_register"
+      >
+        Msg de erro
+      </h1>
     </div>
   );
 }
