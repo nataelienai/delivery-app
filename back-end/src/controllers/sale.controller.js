@@ -1,4 +1,4 @@
-const { sale } = require("../services");
+const { sale } = require('../services');
 
 module.exports = {
   async getByUserId(req, res, next) {

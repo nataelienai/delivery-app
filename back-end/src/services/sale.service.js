@@ -10,17 +10,14 @@ module.exports = {
         {
           model: Product,
           as: 'products',
-          attributes: [
-            'id',
-            'name',
-            'price',
-            'urlImage',
-            [sequelize.literal('`products->SaleProduct`.quantity'), 'quantity'],
-          ],
+          attributes: ['id', 'name', 'price', 'urlImage', [
+            sequelize.literal('`products->SaleProduct`.quantity'),
+            'quantity',
+          ]],
           through: { attributes: [] },
         },
       ],
-      attributes: { exclude: ['userId', 'sellerId'] }
+      attributes: { exclude: ['userId', 'sellerId'] },
     });
   },
 };
