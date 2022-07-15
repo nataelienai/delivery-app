@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const jwt = require('../utils/jwt');
 const { User } = require('../database/models');
 const { UserAlreadyExists } = require('../errors');
 
@@ -21,5 +22,7 @@ module.exports = async function register(name, email, password) {
     password: hashedPassword,
   });
 
-  return { id, name, email };
+  const token = jwt.create(email);
+
+  return { id, name, email, token };
 };
