@@ -10,7 +10,7 @@ export default function ProductCard({ product, id }) {
         { product.name }
       </h2>
       <h2
-        data-testid={ `customer_products__element-card-title-${id}` }
+        data-testid={ `customer_products__element-card-price-${id}` }
       >
         { product.price }
       </h2>
@@ -27,11 +27,9 @@ export default function ProductCard({ product, id }) {
         >
           +
         </button>
-        <h2
+        <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
-        >
-          product qtd
-        </h2>
+        />
         <button
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           type="button"
