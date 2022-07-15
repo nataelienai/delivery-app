@@ -1,11 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router';
+import GlobalContext from '../context/GlobalContext';
+import { setLocalStorage } from '../utils/localStorageAccess';
+
+const HOST = process.env.REACT_APP_HOSTNAME || 'localhost';
+const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
+const CONFLICT = 409;
+const CREATED = 201;
 
 export default function Register() {
+  const navigate = useNavigate();
+  const { setUserDataLogin } = useContext(GlobalContext);
   const [typedInfo, setTypedInfo] = useState({
     name: '',
     email: '',
     password: '',
   });
+  const [shouldRenderMessage, setShouldRenderMessage] = useState(false);
 
   const [invalidInfo, toggleInvalidInfo] = useState(true);
 
@@ -21,6 +32,36 @@ export default function Register() {
       toggleInvalidInfo(false);
     } else {
       toggleInvalidInfo(true);
+    }
+  };
+
+  const saveOnLocalStorageAndGlobalState = (key, payload) => {
+    setUserDataLogin(payload);
+    setLocalStorage(key, payload);
+  };
+
+  const handleRegister = async () => {
+    const res = await fetch(`http://${HOST}:${BACKEND_PORT}/register`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(typedInfo),
+    });
+
+    if (res.status === CREATED) {
+      const { name, email } = await res.json();
+      setUserDataLogin({ name, email, role: 'customer' });
+      saveOnLocalStorageAndGlobalState('user', {
+        name,
+        email,
+        role: 'customer',
+      });
+      navigate('/customer/products');
+    }
+
+    if (res.status === CONFLICT) {
+      setShouldRenderMessage(true);
     }
   };
 
@@ -77,12 +118,14 @@ export default function Register() {
           data-testid="common_register__button-register"
           type="button"
           disabled={ invalidInfo }
+          onClick={ handleRegister }
         >
           Cadastrar
         </button>
       </form>
       <h1
         data-testid="common_register__element-invalid_register"
+        hidden={ !shouldRenderMessage }
       >
         Msg de erro
       </h1>
