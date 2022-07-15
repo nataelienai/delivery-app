@@ -12,7 +12,7 @@ export default function ProductCard({ product, id }) {
       <h2
         data-testid={ `customer_products__element-card-price-${id}` }
       >
-        { product.price }
+        { product.price.replace(/\./, ',') }
       </h2>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
