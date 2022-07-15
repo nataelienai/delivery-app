@@ -17,7 +17,7 @@ export default function CustomerProvider({ children }) {
 
   useEffect(() => {
     fetchProducts();
-  });
+  }, []);
 
   return (
     <customerContext.Provider
