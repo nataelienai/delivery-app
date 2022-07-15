@@ -14,11 +14,12 @@ export default function ProductCard({ product, id }) {
       >
         { product.price }
       </h2>
-      <div
+      <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
-      >
-        product image
-      </div>
+        src={ product.urlImage }
+        alt={ `${product.name}` }
+      />
+
       <div>
         <button
           data-testid={ `customer_products__button-card-add-item-${id}` }
@@ -46,6 +47,7 @@ ProductCard.propTypes = {
   product: P.shape({
     name: P.string,
     price: P.number,
+    urlImage: P.string,
   }).isRequired,
   id: P.number.isRequired,
 };
