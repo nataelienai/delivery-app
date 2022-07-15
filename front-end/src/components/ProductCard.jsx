@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import P from 'prop-types';
 
 export default function ProductCard({ product, id }) {
+  const [quantity] = useState(0);
+
   return (
     <div>
       <h2
@@ -29,6 +31,7 @@ export default function ProductCard({ product, id }) {
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ quantity }
         />
         <button
           data-testid={ `customer_products__button-card-rm-item-${id}` }
