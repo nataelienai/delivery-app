@@ -1,13 +1,16 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import ContextProvider from './context/ContextProvider';
 import Router from './Router';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+      <ContextProvider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </ContextProvider>
     </div>
   );
 }
