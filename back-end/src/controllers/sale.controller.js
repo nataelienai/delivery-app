@@ -9,3 +9,13 @@ module.exports = async function getSaleById(req, res, next) {
     next(error);
   }
 };
+
+module.exports = async function updateSaleStatus(req, res, next) {
+  try {
+    const { id, status } = req.params;
+    const user = await services.login(id, status);
+    return res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
