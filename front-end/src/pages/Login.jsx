@@ -3,10 +3,16 @@ import { useNavigate } from 'react-router';
 import GlobalContext from '../context/GlobalContext';
 import { setLocalStorage } from '../utils/localStorageAccess';
 
+const HOST = process.env.REACT_APP_HOSTNAME || 'localhost';
+const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
+const NOT_FOUND = 404;
+const OK = 200;
+
 export default function Login() {
   const navigate = useNavigate();
   const { setUserDataLogin } = useContext(GlobalContext);
   const [typedInfo, setTypedInfo] = useState({ email: '', password: '' });
+  const [shouldRenderMessage, setShouldRenderMessage] = useState(false);
   const [invalidInfo, toggleInvalidInfo] = useState(true);
 
   const handleValidation = () => {
@@ -21,6 +27,38 @@ export default function Login() {
     }
   };
 
+  const saveOnLocalStorageAndGlobalState = (key, payload) => {
+    setUserDataLogin(payload);
+    setLocalStorage(key, payload);
+  };
+
+  const handleLogin = async () => {
+    const res = await fetch(`http://${HOST}:${BACKEND_PORT}/login`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(typedInfo),
+    });
+
+    if (res.status === NOT_FOUND) {
+      setShouldRenderMessage(true);
+    }
+
+    if (res.status === OK) {
+      setShouldRenderMessage(false);
+      const json = await res.json();
+      const { user: { name, email, role }, token } = json;
+      saveOnLocalStorageAndGlobalState('user', {
+        name,
+        email,
+        role,
+        token,
+      });
+      navigate('/customer/products');
+    }
+  };
+
   useEffect(() => {
     handleValidation();
   }, [typedInfo]);
@@ -31,11 +69,6 @@ export default function Login() {
       ...typedInfo,
       [name]: value,
     });
-  };
-
-  const saveOnLocalStorageAndGlobalState = (key, payload) => {
-    setUserDataLogin(payload);
-    setLocalStorage(key, payload);
   };
 
   const handleClick = () => {
@@ -71,7 +104,7 @@ export default function Login() {
           data-testid="common_login__button-login"
           type="button"
           disabled={ invalidInfo }
-          onClick={ () => saveOnLocalStorageAndGlobalState('user', typedInfo) }
+          onClick={ handleLogin }
         >
           Login
         </button>
@@ -85,6 +118,7 @@ export default function Login() {
       </form>
       <h1
         data-testid="common_login__element-invalid-email"
+        hidden={ !shouldRenderMessage }
       >
         Msg de erro
       </h1>
