@@ -50,12 +50,13 @@ export default function Register() {
     });
 
     if (res.status === CREATED) {
-      const { name, email } = await res.json();
-      setUserDataLogin({ name, email, role: 'customer' });
+      const { name, email, token } = await res.json();
+      setUserDataLogin({ name, email, role: 'customer', token });
       saveOnLocalStorageAndGlobalState('user', {
         name,
         email,
         role: 'customer',
+        token,
       });
       navigate('/customer/products');
     }
