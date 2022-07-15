@@ -9,6 +9,7 @@ const middlewares = require('../middlewares');
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static('public'));
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.post('/login', controllers.login);
