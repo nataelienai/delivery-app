@@ -5,7 +5,7 @@ module.exports = {
     return Sale.findAll({
       where: { userId },
       attributes: {
-        exclude: ['userId', 'sellerId', 'deliveryAddress', 'deliveryNumber']
+        exclude: ['userId', 'sellerId', 'deliveryAddress', 'deliveryNumber'],
       },
     });
   },
