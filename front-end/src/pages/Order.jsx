@@ -1,5 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default function Order() {
-  return <div>ola order</div>;
+  return (
+    <main>
+      <Header />
+    </main>
+  );
 }
