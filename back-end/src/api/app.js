@@ -16,7 +16,7 @@ app.post('/login', controllers.login);
 app.post('/register', controllers.register);
 app.get('/products', controllers.getAll);
 app.post('/sales'); // cria um novo pedido
-app.get('/sales/:userId', controllers.sale.getByUserId);
+app.get('/sales/user/:userId', controllers.sale.getByUserId);
 app.get('/sales/:id'); // encontra um pedido pela id
 app.put('/sales/:id/:status'); // muda o status de um pedido
 
