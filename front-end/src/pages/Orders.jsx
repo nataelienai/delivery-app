@@ -7,7 +7,7 @@ export default function Orders() {
     <main>
       <Header />
       <div>
-        { Array.from({ length: 3 }, () => <OrderCard />)}
+        { Array.from({ length: 3 }, () => <OrderCard />) }
       </div>
     </main>
   );
