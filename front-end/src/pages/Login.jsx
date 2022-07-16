@@ -28,8 +28,9 @@ export default function Login() {
   };
 
   const saveOnLocalStorageAndGlobalState = (key, payload) => {
+    const { name, role, token, email } = payload;
     setUserDataLogin(payload);
-    setLocalStorage(key, payload);
+    setLocalStorage(key, { name, role, token, email });
   };
 
   const handleLogin = async () => {
@@ -48,12 +49,13 @@ export default function Login() {
     if (res.status === OK) {
       setShouldRenderMessage(false);
       const json = await res.json();
-      const { user: { name, email, role }, token } = json;
+      const { user: { name, email, role, id }, token } = json;
       saveOnLocalStorageAndGlobalState('user', {
         name,
         email,
         role,
         token,
+        id,
       });
       navigate('/customer/products');
     }
