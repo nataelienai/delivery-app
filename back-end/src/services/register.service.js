@@ -25,5 +25,5 @@ module.exports = async function register({ name, email, password }) {
 
   const token = jwt.create(email);
 
-  return { id, name, email, role, token };
+  return { id, name, email, role: 'customer', token };
 };
