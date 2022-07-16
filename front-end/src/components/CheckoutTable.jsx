@@ -1,25 +1,12 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import GlobalContext from '../context/GlobalContext';
 import CheckoutTableRow from './CheckoutTableRows';
 
-const itemsMock = [
-  {
-    name: 'Item One',
-    quantity: 3,
-    unitValue: 5.0,
-  },
-  {
-    name: 'Item Two',
-    quantity: 5,
-    unitValue: 2.5,
-  },
-  {
-    name: 'Item Three',
-    quantity: 6,
-    unitValue: 8,
-  },
-];
-
 export default function CheckoutTable() {
+  const { cart } = useContext(GlobalContext);
+
+  useEffect(() => {}, [cart]);
+
   return (
     <table>
       <thead>
@@ -34,7 +21,7 @@ export default function CheckoutTable() {
       </thead>
       <tbody>
         {
-          itemsMock.map((item, index) => (
+          cart.map((item, index) => (
             <CheckoutTableRow item={ item } key={ index } id={ index } />
           ))
         }

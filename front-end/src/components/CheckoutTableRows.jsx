@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import P from 'prop-types';
+import GlobalContext from '../context/GlobalContext';
 
 export default function CheckoutTableRow({ item, id }) {
+  const { setCart } = useContext(GlobalContext);
+
+  const handleClick = () => {
+    setCart((prevState) => prevState
+      .filter((_item, index) => id !== index));
+  };
+
   return (
     <tr>
       <td
@@ -22,17 +30,22 @@ export default function CheckoutTableRow({ item, id }) {
       <td
         data-testid={ `customer_checkout__element-order-table-unit-price-${id}` }
       >
-        {item.unitValue}
+        {item.price.toFixed(2).replace(/\./, ',')}
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-sub-total-${id}` }
       >
-        {item.quantity * item.unitValue}
+        {item.subTotal.toFixed(2).replace(/\./, ',')}
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-remove-${id}` }
       >
-        Remover
+        <button
+          type="button"
+          onClick={ handleClick }
+        >
+          Remover
+        </button>
       </td>
     </tr>
   );
@@ -40,9 +53,11 @@ export default function CheckoutTableRow({ item, id }) {
 
 CheckoutTableRow.propTypes = {
   item: P.shape({
+    id: P.number,
     name: P.string,
     quantity: P.number,
-    unitValue: P.number,
+    price: P.number,
+    subTotal: P.number,
   }).isRequired,
   id: P.number.isRequired,
 };
