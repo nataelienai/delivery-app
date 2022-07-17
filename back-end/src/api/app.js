@@ -14,11 +14,11 @@ app.use(express.static('public'));
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.post('/login', controllers.login);
 app.post('/register', controllers.register);
-app.get('/products', controllers.getAll);
+app.get('/products', controllers.getAllProducts);
 app.post('/sales'); // cria um novo pedido
-app.get('/sales/:user'); // encontra a lista de pedidos de um usuário
+app.get('/sales/user/:userId'); // encontra a lista de pedidos de um usuário
 app.get('/sales/:id', controllers.getSaleById);
-app.put('/sales/:id/:status'); // muda o status de um pedido
+app.patch('/sales/:id/:status', controllers.updateSaleStatus);
 
 app.use(middlewares.error);
 

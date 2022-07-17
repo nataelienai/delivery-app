@@ -10,4 +10,14 @@ module.exports = {
       next(error);
     }
   },
+
+  async updateSaleStatus(req, res, next) {
+    try {
+      const { id, status } = req.params;
+      await services.updateSaleStatus(id, status);
+      return res.status(204).end();
+    } catch (error) {
+      next(error);
+    }
+  },
 };
