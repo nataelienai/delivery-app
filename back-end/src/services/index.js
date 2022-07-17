@@ -1,13 +1,11 @@
 const login = require('./login.service');
 const register = require('./register.service');
-const getAll = require('./product.service');
-const getSaleById = require('./sale.service');
-const updateSaleStatus = require('./sale.service');
+const product = require('./product.service');
+const sale = require('./sale.service');
 
 module.exports = {
   login,
   register,
-  getAll,
-  getSaleById,
-  updateSaleStatus,
+  ...product,
+  ...sale,
 };

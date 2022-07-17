@@ -3,7 +3,7 @@ const jwt = require('../utils/jwt');
 const { User } = require('../database/models');
 const { UserAlreadyExists } = require('../errors');
 
-module.exports = async function register(name, email, password) {
+module.exports = async function register({ name, email, password }) {
   const user = await User.findOne({
     where: {
       email,
@@ -20,9 +20,10 @@ module.exports = async function register(name, email, password) {
     name,
     email,
     password: hashedPassword,
+    role: 'customer',
   });
 
   const token = jwt.create(email);
 
-  return { id, name, email, token };
+  return { id, name, email, role: 'customer', token };
 };

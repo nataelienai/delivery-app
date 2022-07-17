@@ -7,12 +7,15 @@ export default function ContextProvider({ children }) {
     email: '',
     password: '',
   });
+  const [cart, setCart] = useState([]);
 
   return (
     <GlobalContext.Provider
       value={ {
         userDataLogin,
         setUserDataLogin,
+        cart,
+        setCart,
       } }
     >
       { children }
