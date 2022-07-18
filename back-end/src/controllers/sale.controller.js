@@ -10,6 +10,15 @@ module.exports = {
     }
   },
 
+  async getSalesBySellerId(req, res, next) {
+    try {
+      const sales = await services.getSalesBySellerId(req.params.sellerId);
+      return res.status(200).json(sales);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async getSaleById(req, res, next) {
     try {
       const { id } = req.params;
