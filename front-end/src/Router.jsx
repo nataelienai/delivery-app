@@ -15,8 +15,8 @@ export default function Router() {
       <Route exact path="/register" element={ <Register /> } />
       <Route exact path="/customer/products" element={ <Customer /> } />
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
-      <Route exact path="/orders" element={ <Orders /> } />
-      <Route exact path="/orders/:id" element={ <Order /> } />
+      <Route exact path="/customer/orders" element={ <Orders /> } />
+      <Route exact path="/customer/orders/:id" element={ <Order /> } />
     </Routes>
   );
 }

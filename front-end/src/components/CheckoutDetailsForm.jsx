@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router';
 import GlobalContext from '../context/GlobalContext';
-import { getLocalStorage } from '../utils/localStorageAccess';
 
 const HOST = process.env.REACT_APP_HOSTNAME || 'localhost';
 const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
 
 export default function CheckoutDetailsForm() {
-  const { cart } = useContext(GlobalContext);
+  const navigate = useNavigate();
+  const { cart, userDataLogin } = useContext(GlobalContext);
   const [totalOrder, setTotalOrder] = useState(0);
   const [details, setDetails] = useState({
     sellers: [],
@@ -30,14 +31,13 @@ export default function CheckoutDetailsForm() {
   };
 
   const handleClick = async () => {
-    const user = getLocalStorage();
     const res = await fetch(`http://${HOST}:${BACKEND_PORT}/sales`, {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'POST',
       body: JSON.stringify({
-        userId: user.id,
+        userId: userDataLogin.id,
         sellerId: details.sellerId,
         totalPrice: totalOrder,
         deliveryAddress: details.adress,
@@ -46,8 +46,8 @@ export default function CheckoutDetailsForm() {
       }),
     });
 
-    const json = await res.json();
-    console.log(json);
+    const { id } = await res.json();
+    navigate(`/customer/orders/${id}`);
   };
 
   const fetchSellers = async () => {
