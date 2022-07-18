@@ -4,7 +4,10 @@ module.exports = {
   async getSellers() {
     return User.findAll({
       where: {
-        role: 'seller',
+        role: 'seller', 
+      },
+      attributes: {
+        exclude: ['password'],
       },
     });
   },
