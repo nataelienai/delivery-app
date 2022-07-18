@@ -11,6 +11,15 @@ module.exports = {
     });
   },
 
+  async getSalesBySellerId(sellerId) {
+    return Sale.findAll({
+      where: { sellerId },
+      attributes: {
+        exclude: ['userId', 'sellerId'],
+      },
+    });
+  },
+
   async getSaleById(id) {
     return Sale.findOne({
       where: { id },
