@@ -1,14 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import GlobalContext from '../context/GlobalContext';
+import { getLocalStorage } from '../utils/localStorageAccess';
 
 const HOST = process.env.REACT_APP_HOSTNAME || 'localhost';
 const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
 
 export default function CheckoutDetailsForm() {
+  const { cart } = useContext(GlobalContext);
+  const [totalOrder, setTotalOrder] = useState(0);
   const [details, setDetails] = useState({
     sellers: [],
     adress: '',
     number: '',
+    sellerId: null,
   });
+
+  const sumOfCart = cart.reduce((acc, item) => item.subTotal + acc, 0);
+
+  useEffect(() => {
+    setTotalOrder(sumOfCart);
+  }, [cart]);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -18,10 +29,32 @@ export default function CheckoutDetailsForm() {
     });
   };
 
+  const handleClick = async () => {
+    const user = getLocalStorage();
+    const res = await fetch(`http://${HOST}:${BACKEND_PORT}/sales`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        userId: user.id,
+        sellerId: details.sellerId,
+        totalPrice: totalOrder,
+        deliveryAddress: details.adress,
+        deliveryNumber: details.number,
+        products: cart,
+      }),
+    });
+
+    const json = await res.json();
+    console.log(json);
+  };
+
   const fetchSellers = async () => {
     const res = await fetch(`http://${HOST}:${BACKEND_PORT}/users/sellers`);
     const json = await res.json();
-    setDetails((prevDetails) => ({ ...prevDetails, sellers: json }));
+    setDetails((prevDetails) => (
+      { ...prevDetails, sellers: json, sellerId: json[0].id }));
   };
 
   useEffect(() => {
@@ -34,16 +67,16 @@ export default function CheckoutDetailsForm() {
         <label htmlFor="seller-select">
           P. Vendedora Responsável
           <select
-            name="seller"
+            name="sellerId"
             id="seller-select"
             data-testid="customer_checkout__select-seller"
-            value={ details.seller }
+            value={ details.sellerId }
             onChange={ handleChange }
           >
             { details.sellers.length === 0
               ? 'aaaaaaaaaa'
               : details.sellers.map((seller, index) => (
-                <option key={ index } value={ seller.name }>{seller.name}</option>
+                <option key={ index } value={ seller.id }>{seller.name}</option>
               ))}
           </select>
         </label>
@@ -75,6 +108,7 @@ export default function CheckoutDetailsForm() {
       <button
         data-testid="customer_checkout__button-submit-order"
         type="button"
+        onClick={ handleClick }
       >
         Finalizar Pedido
       </button>
