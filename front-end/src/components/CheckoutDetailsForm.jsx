@@ -20,8 +20,8 @@ export default function CheckoutDetailsForm() {
 
   const fetchSellers = async () => {
     const res = await fetch(`http://${HOST}:${BACKEND_PORT}/users/sellers`);
-    const json = res.json();
-    setDetails((prevDetails) => ({ ...prevDetails, json }));
+    const json = await res.json();
+    setDetails((prevDetails) => ({ ...prevDetails, sellers: json }));
   };
 
   useEffect(() => {
@@ -41,8 +41,9 @@ export default function CheckoutDetailsForm() {
             onChange={ handleChange }
           >
             { details.sellers.length === 0
-              || details.sellers.map((seller, index) => (
-                <option key={ index } value={ seller }>{seller}</option>
+              ? 'aaaaaaaaaa'
+              : details.sellers.map((seller, index) => (
+                <option key={ index } value={ seller.name }>{seller.name}</option>
               ))}
           </select>
         </label>
