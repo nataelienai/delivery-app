@@ -1,6 +1,15 @@
 const services = require('../services');
 
 module.exports = {
+  async getSalesByUserId(req, res, next) {
+    try {
+      const sales = await services.getSalesByUserId(req.params.userId);
+      return res.status(200).json(sales);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async getSaleById(req, res, next) {
     try {
       const { id } = req.params;
