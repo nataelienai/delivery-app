@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const sellersMock = [
-  'Fulano de Tal',
-  'Ciclano de Tal',
-  'Chucky Norris',
-  'Jimin do BTS',
-  'Silvio Santos',
-  'Tristana',
-];
+const HOST = process.env.REACT_APP_HOSTNAME || 'localhost';
+const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
 
 export default function CheckoutDetailsForm() {
   const [details, setDetails] = useState({
-    seller: 'Selecione o vendedor',
+    sellers: [],
     adress: '',
     number: '',
   });
@@ -23,6 +17,15 @@ export default function CheckoutDetailsForm() {
       [name]: value,
     });
   };
+
+  const fetchSelles = async () => {
+    const res = await fetch(`http://${HOST}:${BACKEND_PORT}/users/sellers`);
+    const json = res.json();
+    setDetails((prevDetails) => ({ ...prevDetails, json }));
+  };
+  useEffect(() => {
+    fetchSelles();
+  }, []);
 
   return (
     <div>
@@ -36,9 +39,10 @@ export default function CheckoutDetailsForm() {
             value={ details.seller }
             onChange={ handleChange }
           >
-            {sellersMock.map((seller, index) => (
-              <option key={ index } value={ seller }>{seller}</option>
-            ))}
+            { details.sellers.length === 0
+              || details.sellers.map((seller, index) => (
+                <option key={ index } value={ seller }>{seller}</option>
+              ))}
           </select>
         </label>
         <label htmlFor="address-input">
