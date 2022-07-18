@@ -7,7 +7,7 @@ module.exports = {
         role: 'seller', 
       },
       attributes: {
-        exclude: ['password'],
+        exclude: ['password', 'role', 'email'],
       },
     });
   },
