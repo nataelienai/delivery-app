@@ -18,13 +18,14 @@ export default function CheckoutDetailsForm() {
     });
   };
 
-  const fetchSelles = async () => {
+  const fetchSellers = async () => {
     const res = await fetch(`http://${HOST}:${BACKEND_PORT}/users/sellers`);
     const json = res.json();
     setDetails((prevDetails) => ({ ...prevDetails, json }));
   };
+
   useEffect(() => {
-    fetchSelles();
+    fetchSellers();
   }, []);
 
   return (
