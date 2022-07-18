@@ -2,6 +2,15 @@ const sequelize = require('sequelize');
 const { Sale, User, Product } = require('../database/models');
 
 module.exports = {
+  async getSalesByUserId(userId) {
+    return Sale.findAll({
+      where: { userId },
+      attributes: {
+        exclude: ['userId', 'sellerId', 'deliveryAddress', 'deliveryNumber'],
+      },
+    });
+  },
+
   async getSaleById(id) {
     return Sale.findOne({
       where: { id },
