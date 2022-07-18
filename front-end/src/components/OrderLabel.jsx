@@ -1,27 +1,30 @@
 import React from 'react';
+import P from 'prop-types';
 
-export default function OrderLabel() {
+export default function OrderLabel(props) {
+  const { id, seller, date, status } = props;
+
   return (
     <div>
       <h1
         data-testid="customer_order_details__element-order-details-label-order-id"
       >
-        Numero do pedido
+        { id }
       </h1>
       <p
         data-testid="customer_order_details__element-order-details-label-seller-name"
       >
-        Nome da pessoa vendedora
+        { seller }
       </p>
       <p
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        Data do pedido
+        { date }
       </p>
       <p
         data-testid="customer_order_details__element-order-details-label-delivery-status"
       >
-        Status do pedido
+        { status }
       </p>
       <button
         type="button"
@@ -32,3 +35,10 @@ export default function OrderLabel() {
     </div>
   );
 }
+
+OrderLabel.propTypes = {
+  id: P.number.isRequired,
+  seller: P.string.isRequired,
+  date: P.string.isRequired,
+  status: P.string.isRequired,
+};
