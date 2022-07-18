@@ -1,7 +1,30 @@
 const sequelize = require('sequelize');
-const { Sale, User, Product } = require('../database/models');
+const { Sale, SaleProduct, User, Product } = require('../database/models');
 
 module.exports = {
+  async createSale(sale) {
+    const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, products } = sale;
+  
+    const newSale = await Sale.create({
+      userId,
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
+      saleDate: new Date(),
+      status: 'Pendente',
+    });
+
+    await Promise.all(products.map(async (product) => {
+      SaleProduct.create({
+        saleId: newSale.id,
+        productId: product.id,
+        quantity: product.quantity,
+      });
+    }));
+    return newSale;
+  },
+  
   async getSalesByUserId(userId) {
     return Sale.findAll({
       where: { userId },

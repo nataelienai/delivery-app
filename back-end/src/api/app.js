@@ -15,7 +15,7 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 app.post('/login', controllers.login);
 app.post('/register', controllers.register);
 app.get('/products', controllers.getAllProducts);
-app.post('/sales'); // cria um novo pedido
+app.post('/sales', controllers.createSale);
 app.get('/sales/user/:userId', controllers.getSalesByUserId);
 app.get('/sales/seller/:sellerId', controllers.getSalesBySellerId);
 app.get('/sales/:id', controllers.getSaleById);

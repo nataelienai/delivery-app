@@ -1,6 +1,17 @@
 const services = require('../services');
 
 module.exports = {
+  async createSale(req, res, next) {
+    try {
+      const { userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, products } = req.body;
+      const newSale = await services
+        .createSale({ userId, sellerId, totalPrice, deliveryAddress, products, deliveryNumber });
+      return res.status(201).json(newSale);
+    } catch (error) {
+       next(error);
+    }
+  },
+   
   async getSalesByUserId(req, res, next) {
     try {
       const sales = await services.getSalesByUserId(req.params.userId);
