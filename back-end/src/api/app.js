@@ -19,6 +19,7 @@ app.post('/sales'); // cria um novo pedido
 app.get('/sales/user/:userId'); // encontra a lista de pedidos de um usuário
 app.get('/sales/:id', controllers.getSaleById);
 app.patch('/sales/:id/:status', controllers.updateSaleStatus);
+app.get('/users/sellers', controllers.getSellers);
 
 app.use(middlewares.error);
 
