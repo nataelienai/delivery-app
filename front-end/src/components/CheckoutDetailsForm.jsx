@@ -14,7 +14,7 @@ export default function CheckoutDetailsForm() {
     sellers: [],
     adress: '',
     number: '',
-    sellerId: null,
+    sellerId: 0,
   });
 
   const sumOfCart = cart.reduce((acc, item) => item.subTotal + acc, 0);

@@ -1,28 +1,39 @@
 import React from 'react';
+import P from 'prop-types';
 
-export default function OrderCard() {
+export default function OrderCard({ order, index }) {
   return (
     <div>
       <p
-        data-testid="customer_orders__element-order-id-<id>"
+        data-testid={ `customer_orders__element-order-id-${index}` }
       >
-        id do pedido
+        { order.id }
       </p>
       <p
-        data-testid="customer_orders__element-delivery-status-<id>"
+        data-testid={ `customer_orders__element-delivery-status-${index} ` }
       >
-        status
+        { order.status }
       </p>
       <p
-        data-testid="customer_orders__element-order-date-<id>"
+        data-testid={ `customer_orders__element-order-date-${index}` }
       >
-        data
+        { new Date(order.saleDate).toLocaleDateString('pt-BR') }
       </p>
       <p
-        data-testid="customer_orders__element-card-price-<id>"
+        data-testid={ `customer_orders__element-card-price-${index}` }
       >
-        total do pedido
+        { order.totalPrice }
       </p>
     </div>
   );
 }
+
+OrderCard.propTypes = {
+  order: P.shape({
+    id: P.number,
+    status: P.string,
+    saleDate: P.string,
+    totalPrice: P.string,
+  }).isRequired,
+  index: P.number.isRequired,
+};

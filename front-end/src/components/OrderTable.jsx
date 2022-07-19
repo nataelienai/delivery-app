@@ -16,7 +16,7 @@ export default function OrderTable({ products }) {
       </thead>
       <tbody>
         { products.map((product, index) => (
-          <OrderTableRow key={ index } item={ product } />
+          <OrderTableRow key={ index } item={ product } id={ index } />
         ))}
       </tbody>
     </table>

@@ -16,7 +16,11 @@ export default function Header() {
             Produtos
           </li>
           <li data-testid="customer_products__element-navbar-link-orders">
-            Meus Pedidos
+            <Link
+              to="/customer/orders"
+            >
+              Meus Pedidos
+            </Link>
           </li>
           <li data-testid="customer_products__element-navbar-user-full-name">
             {name}
