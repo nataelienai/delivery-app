@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { readFileSync } = require('fs');
 const Path = require('path');
+const { Unauthorized } = require('../errors');
 
 const jwtSecret = readFileSync(
   Path.resolve(__dirname, '..', '..', 'jwt.evaluation.key'),
@@ -12,7 +13,11 @@ function create(data) {
 }
 
 function verify(token) {
-  return jwt.verify(token, jwtSecret);
+  try {
+    return jwt.verify(token, jwtSecret);
+  } catch (error) {
+    throw new Unauthorized('Token invalid');
+  }
 }
 
 module.exports = {

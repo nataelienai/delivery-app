@@ -1,4 +1,4 @@
-const { InvalidPassword, NotFound, UserAlreadyExists } = require('../errors');
+const { InvalidPassword, NotFound, UserAlreadyExists, Unauthorized } = require('../errors');
 
 module.exports = function error(err, _req, res, _next) {
   if (err instanceof NotFound) {
@@ -11,6 +11,10 @@ module.exports = function error(err, _req, res, _next) {
 
   if (err instanceof UserAlreadyExists) {
     return res.status(409).json({ message: err.message });
+  }
+
+  if (err instanceof Unauthorized) {
+    return res.status(401).json({ message: err.message });
   }
 
   return res.status(500).json({ message: 'Internal server error' });
