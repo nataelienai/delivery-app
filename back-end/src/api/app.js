@@ -15,11 +15,11 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 app.post('/login', controllers.login);
 app.post('/register', controllers.register);
 app.get('/products', controllers.getAllProducts);
-app.post('/sales', controllers.createSale);
+app.post('/sales', middlewares.auth, controllers.createSale);
 app.get('/sales/user/:userId', controllers.getSalesByUserId);
 app.get('/sales/seller/:sellerId', controllers.getSalesBySellerId);
 app.get('/sales/:id', controllers.getSaleById);
-app.patch('/sales/:id/:status', controllers.updateSaleStatus);
+app.patch('/sales/:id/:status', middlewares.auth, controllers.updateSaleStatus);
 app.get('/users/sellers', controllers.getSellers);
 
 app.use(middlewares.error);
