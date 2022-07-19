@@ -36,8 +36,9 @@ export default function Register() {
   };
 
   const saveOnLocalStorageAndGlobalState = (key, payload) => {
+    const { name, token, email, role } = payload;
     setUserDataLogin(payload);
-    setLocalStorage(key, payload);
+    setLocalStorage(key, { name, token, email, role });
   };
 
   const handleRegister = async () => {
@@ -50,9 +51,10 @@ export default function Register() {
     });
 
     if (res.status === CREATED) {
-      const { name, email, token } = await res.json();
-      setUserDataLogin({ name, email, role: 'customer', token });
+      const { name, email, token, id } = await res.json();
+      setUserDataLogin({ name, email, role: 'customer', id, token });
       saveOnLocalStorageAndGlobalState('user', {
+        id,
         name,
         email,
         role: 'customer',

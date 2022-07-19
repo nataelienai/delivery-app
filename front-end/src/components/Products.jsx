@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
-import { customerContext } from '../context/CustomerProvides';
+import { customerContext } from '../context/CustomerProvider';
 import GlobalContext from '../context/GlobalContext';
 
 export default function Products() {
