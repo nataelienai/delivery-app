@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import P from 'prop-types';
+import { getLocalStorage } from '../utils/localStorageAccess';
 
 const HOST = process.env.REACT_APP_HOSTNAME || 'localhost';
 const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
@@ -13,6 +14,9 @@ export default function OrderLabel(props) {
 
   const handleClick = async () => {
     const res = await fetch(`http://${HOST}:${BACKEND_PORT}/sales/${id}/3`, {
+      headers: {
+        Authorization: getLocalStorage().token,
+      },
       method: 'PATCH',
     });
 

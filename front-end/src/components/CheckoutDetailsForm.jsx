@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import GlobalContext from '../context/GlobalContext';
+import { getLocalStorage } from '../utils/localStorageAccess';
 
 const HOST = process.env.REACT_APP_HOSTNAME || 'localhost';
 const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
@@ -34,6 +35,7 @@ export default function CheckoutDetailsForm() {
     const res = await fetch(`http://${HOST}:${BACKEND_PORT}/sales`, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: getLocalStorage().token,
       },
       method: 'POST',
       body: JSON.stringify({
