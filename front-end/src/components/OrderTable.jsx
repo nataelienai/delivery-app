@@ -1,7 +1,8 @@
 import React from 'react';
+import P from 'prop-types';
 import OrderTableRow from './OrderTableRow';
 
-export default function OrderTable() {
+export default function OrderTable({ products }) {
   return (
     <table>
       <thead>
@@ -14,10 +15,19 @@ export default function OrderTable() {
         </tr>
       </thead>
       <tbody>
-        { Array.from({ length: 3 }, () => (
-          <OrderTableRow />
+        { products.map((product, index) => (
+          <OrderTableRow key={ index } item={ product } />
         ))}
       </tbody>
     </table>
   );
 }
+
+OrderTable.propTypes = {
+  products: P.arrayOf(P.shape({
+    id: P.number,
+    name: P.string,
+    price: P.string,
+    quantity: P.number,
+  })).isRequired,
+};
