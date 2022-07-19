@@ -1,33 +1,43 @@
 import React from 'react';
+import P from 'prop-types';
 
-export default function OrderTableRow() {
+export default function OrderTableRow({ item }) {
   return (
     <tr>
       <td
         data-testid="customer_order_details__element-order-table-item-number-<index>"
       >
-        Item1
+        { item.id }
       </td>
       <td
         data-testid="customer_order_details__element-order-table-name-<index>"
       >
-        DEscricao1
+        { item.name }
       </td>
       <td
         data-testid="customer_order_details__element-order-table-quantity-<index>"
       >
-        quantidade1
+        { item.quantity }
       </td>
       <td
         data-testid="customer_order_details__element-order-table-unit-price-<index>"
       >
-        price
+        { item.price }
       </td>
       <td
         data-testid="customer_order_details__element-order-table-sub-total-<index>"
       >
-        subTotal
+        { (item.quantity * item.price).toFixed(2).replace(/\./, ',') }
       </td>
     </tr>
   );
 }
+
+OrderTableRow.propTypes = {
+  item: P.shape({
+    id: P.number.isRequired,
+    name: P.string.isRequired,
+    price: P.string.isRequired,
+    quantity: P.number.isRequired,
+  }).isRequired,
+};
