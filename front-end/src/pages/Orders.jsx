@@ -8,32 +8,27 @@ const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
 
 export default function Orders() {
   const { userDataLogin } = useContext(GlobalContext);
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState();
 
   const fetchOrders = async () => {
     const res = await fetch(`http://${HOST}:${BACKEND_PORT}/sales/user/${userDataLogin.id}`);
     const json = await res.json();
     setOrders(json);
-    setLoading(false);
   };
 
   useEffect(() => {
     fetchOrders();
   }, []);
 
-  if (loading) {
-    return <div>carregando</div>;
-  }
-
   return (
     <main>
       <Header />
       <div>
         {
-          orders.map((order, index) => (
-            <OrderCard key={ index } order={ order } index={ index } />
-          ))
+          !orders
+            || orders.map((order, index) => (
+              <OrderCard key={ index } order={ order } index={ index } />
+            ))
         }
       </div>
     </main>
