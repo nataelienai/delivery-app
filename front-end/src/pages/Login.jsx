@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import GlobalContext from '../context/GlobalContext';
-import { setLocalStorage } from '../utils/localStorageAccess';
+import { setLocalStorage, getLocalStorage } from '../utils/localStorageAccess';
 
 const HOST = process.env.REACT_APP_HOSTNAME || 'localhost';
 const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
@@ -28,9 +28,8 @@ export default function Login() {
   };
 
   const saveOnLocalStorageAndGlobalState = (key, payload) => {
-    const { name, role, token, email } = payload;
     setUserDataLogin(payload);
-    setLocalStorage(key, { name, role, token, email });
+    setLocalStorage(key, payload);
   };
 
   const handleLogin = async () => {
@@ -60,6 +59,12 @@ export default function Login() {
       navigate('/customer/products');
     }
   };
+
+  useEffect(() => {
+    if (getLocalStorage()) {
+      navigate('/customer/products');
+    }
+  }, []);
 
   useEffect(() => {
     handleValidation();

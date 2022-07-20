@@ -8,7 +8,7 @@ const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
 
 export default function CheckoutDetailsForm() {
   const navigate = useNavigate();
-  const { cart, userDataLogin } = useContext(GlobalContext);
+  const { cart } = useContext(GlobalContext);
   const [totalOrder, setTotalOrder] = useState(0);
   const [details, setDetails] = useState({
     sellers: [],
@@ -39,7 +39,7 @@ export default function CheckoutDetailsForm() {
       },
       method: 'POST',
       body: JSON.stringify({
-        userId: userDataLogin.id,
+        userId: getLocalStorage().id,
         sellerId: details.sellerId,
         totalPrice: totalOrder,
         deliveryAddress: details.adress,

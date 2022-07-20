@@ -36,9 +36,8 @@ export default function Register() {
   };
 
   const saveOnLocalStorageAndGlobalState = (key, payload) => {
-    const { name, token, email, role } = payload;
     setUserDataLogin(payload);
-    setLocalStorage(key, { name, token, email, role });
+    setLocalStorage(key, payload);
   };
 
   const handleRegister = async () => {
