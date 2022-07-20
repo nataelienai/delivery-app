@@ -1,29 +1,34 @@
 import React from 'react';
 import P from 'prop-types';
+import { Link } from 'react-router-dom';
 
-export default function OrderCard({ order, index }) {
+export default function OrderCard({ order }) {
   return (
     <div>
-      <p
-        data-testid={ `customer_orders__element-order-id-${index}` }
+      <Link
+        to={ `/customer/orders/${order.id}` }
       >
-        { order.id }
-      </p>
-      <p
-        data-testid={ `customer_orders__element-delivery-status-${index} ` }
-      >
-        { order.status }
-      </p>
-      <p
-        data-testid={ `customer_orders__element-order-date-${index}` }
-      >
-        { new Date(order.saleDate).toLocaleDateString('pt-BR') }
-      </p>
-      <p
-        data-testid={ `customer_orders__element-card-price-${index}` }
-      >
-        { order.totalPrice }
-      </p>
+        <p
+          data-testid={ `customer_orders__element-order-id-${order.id}` }
+        >
+          { order.id }
+        </p>
+        <p
+          data-testid={ `customer_orders__element-delivery-status-${order.id}` }
+        >
+          { order.status }
+        </p>
+        <p
+          data-testid={ `customer_orders__element-order-date-${order.id}` }
+        >
+          { new Date(order.saleDate).toLocaleDateString('pt-BR') }
+        </p>
+        <p
+          data-testid={ `customer_orders__element-card-price-${order.id}` }
+        >
+          { order.totalPrice.replace(/\./, ',') }
+        </p>
+      </Link>
     </div>
   );
 }
@@ -35,5 +40,4 @@ OrderCard.propTypes = {
     saleDate: P.string,
     totalPrice: P.string,
   }).isRequired,
-  index: P.number.isRequired,
 };

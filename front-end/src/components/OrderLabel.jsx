@@ -57,7 +57,7 @@ export default function OrderLabel(props) {
         type="button"
         data-testid="customer_order_details__button-delivery-check"
         onClick={ handleClick }
-        disabled={ delivered }
+        disabled={ !delivered }
       >
         Marcar como entregue
       </button>

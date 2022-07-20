@@ -16,7 +16,7 @@ module.exports = {
     });
 
     await Promise.all(products.map(async (product) => {
-      SaleProduct.create({
+      await SaleProduct.create({
         saleId: newSale.id,
         productId: product.id,
         quantity: product.quantity,
