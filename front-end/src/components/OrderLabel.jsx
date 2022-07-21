@@ -25,12 +25,6 @@ export default function OrderLabel(props) {
     }
   };
 
-  useEffect(() => {
-    if (status === 'Entregue') {
-      setDelivered(true);
-    }
-  }, []);
-
   return (
     <div>
       <h1
@@ -51,13 +45,13 @@ export default function OrderLabel(props) {
       <p
         data-testid="customer_order_details__element-order-details-label-delivery-status"
       >
-        { !delivered ? status : 'Entregue' }
+        { delivered ? 'Entregue' : status }
       </p>
       <button
         type="button"
         data-testid="customer_order_details__button-delivery-check"
         onClick={ handleClick }
-        disabled={ !delivered }
+        disabled={ status !==  'Em Trânsito' }
       >
         Marcar como entregue
       </button>
