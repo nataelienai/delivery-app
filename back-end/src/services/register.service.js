@@ -33,7 +33,7 @@ module.exports = {
   async registerByAdmin({ name, email, password, role }) {
     const user = await User.findOne({
       where: {
-        [Op.or]: [{ name }, { email }]
+        [Op.or]: [{ name }, { email }],
       },
     });
 
