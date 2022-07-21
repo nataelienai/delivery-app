@@ -31,7 +31,7 @@ export default function SellerOrderCard({ order }) {
         <p
           data-testid={ `seller_orders__element-card-address-${order.id}` }
         >
-          AQUI VAI O ADRESS RECEBIDO COMO PROP
+          { `${order.deliveryAddress}, ${order.deliveryNumber}` }
         </p>
       </Link>
     </div>
@@ -44,5 +44,7 @@ SellerOrderCard.propTypes = {
     status: P.string,
     saleDate: P.string,
     totalPrice: P.string,
+    deliveryAddress: P.string,
+    deliveryNumber: P.string,
   }).isRequired,
 };

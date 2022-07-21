@@ -17,7 +17,7 @@ export default function SellerHeader() {
               data-testid="customer_products__element-navbar-link-products"
               to="/seller/orders"
             >
-              Produtos
+              Pedidos
             </Link>
           </li>
           <li data-testid="customer_products__element-navbar-user-full-name">

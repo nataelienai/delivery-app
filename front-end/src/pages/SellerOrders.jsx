@@ -11,7 +11,7 @@ export default function SellerOrders() {
   const [orders, setOrders] = useState();
 
   const fetchOrders = async () => {
-    const res = await fetch(`http://${HOST}:${BACKEND_PORT}/sales/user/${userDataLogin.id}`);
+    const res = await fetch(`http://${HOST}:${BACKEND_PORT}/sales/seller/${userDataLogin.id}`);
     const json = await res.json();
     setOrders(json);
   };
