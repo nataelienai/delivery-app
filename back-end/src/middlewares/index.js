@@ -3,5 +3,5 @@ const auth = require('./auth.middleware');
 
 module.exports = {
   error,
-  auth,
+  ...auth,
 };
