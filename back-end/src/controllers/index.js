@@ -6,7 +6,7 @@ const user = require('./user.controller');
 
 module.exports = {
   login,
-  register,
+  ...register,
   ...product,
   ...sale,
   ...user,

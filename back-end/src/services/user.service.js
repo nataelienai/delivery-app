@@ -11,4 +11,9 @@ module.exports = {
       },
     });
   },
+
+  async isAdmin(email) {
+    const user = await User.findOne({ where: { email } });
+    return user.role === 'administrator';
+  },
 };

@@ -21,6 +21,7 @@ app.get('/sales/seller/:sellerId', controllers.getSalesBySellerId);
 app.get('/sales/:id', controllers.getSaleById);
 app.patch('/sales/:id/:status', middlewares.auth, controllers.updateSaleStatus);
 app.get('/users/sellers', controllers.getSellers);
+app.post('/admin/users', middlewares.authAdmin, controllers.registerByAdmin);
 
 app.use(middlewares.error);
 
