@@ -8,6 +8,7 @@ import Order from './pages/Order';
 import Orders from './pages/Orders';
 import SellerOrder from './pages/SellerOrder';
 import SellerOrders from './pages/SellerOrders';
+import AdminManage from './pages/AdminManage';
 
 export default function Router() {
   return (
@@ -21,6 +22,7 @@ export default function Router() {
       <Route exact path="/customer/orders/:id" element={ <Order /> } />
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
       <Route exact path="/seller/orders/:id" element={ <SellerOrder /> } />
+      <Route exact path="/admin/manage" element={ <AdminManage /> } />
     </Routes>
   );
 }
