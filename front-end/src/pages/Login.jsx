@@ -17,6 +17,7 @@ export default function Login() {
   const homePages = {
     customer: '/customer/products',
     seller: '/seller/orders',
+    administrator: '/admin/manage',
   };
 
   const handleValidation = () => {
