@@ -1,8 +1,6 @@
 const { InvalidPassword, NotFound, UserAlreadyExists, Unauthorized } = require('../errors');
 
 module.exports = function error(err, _req, res, _next) {
-  console.log(err);
-
   if (err instanceof NotFound) {
     return res.status(404).json({ message: err.message });
   }
@@ -19,5 +17,6 @@ module.exports = function error(err, _req, res, _next) {
     return res.status(401).json({ message: err.message });
   }
 
+  console.log(err);
   return res.status(500).json({ message: 'Internal server error' });
 };

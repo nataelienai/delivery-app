@@ -14,6 +14,10 @@ export default function Login() {
   const [typedInfo, setTypedInfo] = useState({ email: '', password: '' });
   const [shouldRenderMessage, setShouldRenderMessage] = useState(false);
   const [invalidInfo, toggleInvalidInfo] = useState(true);
+  const homePages = {
+    customer: '/customer/products',
+    seller: '/seller/orders',
+  };
 
   const handleValidation = () => {
     const validRegex = /\S+@\S+\.\S+/;
@@ -56,13 +60,16 @@ export default function Login() {
         token,
         id,
       });
-      navigate('/customer/products');
+      console.log(`homePages[role] - ${role}`);
+      navigate(homePages[role]);
     }
   };
 
   useEffect(() => {
-    if (getLocalStorage()) {
-      navigate('/customer/products');
+    const user = getLocalStorage();
+    if (user) {
+      console.log(`homePages[user.role] - ${user.role}`);
+      navigate(homePages[user.role]);
     }
   }, []);
 
@@ -102,7 +109,7 @@ export default function Login() {
             data-testid="common_login__input-password"
             id="input-password"
             name="password"
-            type="text"
+            type="password"
             value={ typedInfo.password }
             onChange={ onChangeHandle }
           />
