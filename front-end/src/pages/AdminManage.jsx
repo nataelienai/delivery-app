@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AdminHeader from '../components/AdminHeader';
 import GlobalContext from '../context/GlobalContext';
-import { setLocalStorage } from '../utils/localStorageAccess';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorageAccess';
 
 const HOST = process.env.REACT_APP_HOSTNAME || 'localhost';
 const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || '3001';
@@ -43,9 +43,10 @@ export default function AdminManage() {
   };
 
   const handleRegister = async () => {
-    const res = await fetch(`http://${HOST}:${BACKEND_PORT}/admin/manage`, {
+    const res = await fetch(`http://${HOST}:${BACKEND_PORT}/admin/users`, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: getLocalStorage().token,
       },
       method: 'POST',
       body: JSON.stringify(typedInfo),
