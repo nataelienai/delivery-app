@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import P from 'prop-types';
 import { getLocalStorage } from '../utils/localStorageAccess';
 
@@ -51,7 +51,7 @@ export default function OrderLabel(props) {
         type="button"
         data-testid="customer_order_details__button-delivery-check"
         onClick={ handleClick }
-        disabled={ status !==  'Em Trânsito' }
+        disabled={ status !== 'Em Trânsito' }
       >
         Marcar como entregue
       </button>
