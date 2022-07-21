@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { Op } = require('sequelize');
 const jwt = require('../utils/jwt');
 const { User } = require('../database/models');
 const { UserAlreadyExists } = require('../errors');
