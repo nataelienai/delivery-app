@@ -18,4 +18,13 @@ module.exports = {
       next(error);
     }
   },
+
+  async deleteUserById(req, res, next) {
+    try {
+      await services.deleteUserById(req.params.id);
+      return res.status(204).end();
+    } catch (error) {
+      next(error);
+    }
+  },
 };

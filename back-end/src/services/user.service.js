@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const { User } = require('../database/models');
+const { NotFound } = require('../errors');
 
 module.exports = {
   async getSellers() {
@@ -27,5 +28,13 @@ module.exports = {
         exclude: ['password'],
       },
     });
+  },
+
+  async deleteUserById(id) {
+    const user = await User.findByPk(id);
+    if (!user) {
+      throw new NotFound('User not found');
+    }
+    await User.destroy({ where: { id } });
   },
 };
