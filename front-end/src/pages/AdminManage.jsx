@@ -43,7 +43,7 @@ export default function AdminManage() {
   };
 
   const handleRegister = async () => {
-    const res = await fetch(`http://${HOST}:${BACKEND_PORT}/admin/users`, {
+    const res = await fetch(`http://${HOST}:${BACKEND_PORT}/users`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: getLocalStorage().token,
