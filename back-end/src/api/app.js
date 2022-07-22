@@ -22,6 +22,7 @@ app.patch('/sales/:id/:status', middlewares.auth, controllers.updateSaleStatus);
 app.get('/users', controllers.getUsers);
 app.get('/users/sellers', controllers.getSellers);
 app.post('/admin/users', middlewares.authAdmin, controllers.registerByAdmin);
+app.delete('/user/:id', middlewares.authAdmin, controllers.deleteUserById);
 
 app.use(middlewares.error);
 
