@@ -7,6 +7,11 @@ services:
     depends_on:
       backend:
         condition: service_healthy
+    environment:
+      - ESLINT_NO_DEV_ERRORS=true
+      - SKIP_PREFLIGHT_CHECK=true
+      - REACT_APP_HOSTNAME=localhost
+      - REACT_APP_BACKEND_PORT=3001
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3000"]
       timeout: 10s
